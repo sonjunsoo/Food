@@ -3,6 +3,38 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script>
+function inputPhoneNumber(obj) {
+
+
+
+    var number = obj.value.replace(/[^0-9]/g, "");
+    var phone = "";
+
+
+
+    if(number.length < 4) {
+        return number;
+    } else if(number.length < 7) {
+        phone += number.substr(0, 3);
+        phone += "-";
+        phone += number.substr(3);
+    } else if(number.length < 11) {
+        phone += number.substr(0, 3);
+        phone += "-";
+        phone += number.substr(3, 3);
+        phone += "-";
+        phone += number.substr(6);
+    } else {
+        phone += number.substr(0, 3);
+        phone += "-";
+        phone += number.substr(3, 4);
+        phone += "-";
+        phone += number.substr(7);
+    }
+    obj.value = phone;
+}
+</script>
 <meta charset="UTF-8">
 <title>댓거리 맛집 리스트!</title>
 <meta charset="utf-8">
@@ -15,7 +47,8 @@
 <body>
 <div class="container">
 <h1>댓거리 맛집 정보!</h1>
-<form action="data.jsp">
+<br>
+<form action="fdata.jsp">
     <div class="form-group">
       <label for="name">가게:</label>
       <input type="text" class="form-control" id="name" placeholder="가게 이름 입력" name="name">
@@ -42,7 +75,7 @@
     </div>
     <div class="form-group">
       <label for="tel">전화번호:</label>
-      <input type="text" class="form-control" id="tel" placeholder="전화번호 입력" name="tel">
+      <input type="text" onKeyup="inputPhoneNumber(this);" class="form-control" id="tel" placeholder="전화번호 입력" name="tel">
     </div>
     <div class="form-group">
       <label for="time">영업시간:</label>
