@@ -36,7 +36,7 @@ function inputPhoneNumber(obj) {
 
 </script>
 <meta charset="UTF-8">
-<title>댓거리 맛집 리스트!</title>
+<title>댓거리 맛집 정보 입력!</title>
 <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -46,7 +46,7 @@ function inputPhoneNumber(obj) {
 </head>
 <body>
 <div class="container">
-<h1>댓거리 맛집 정보!</h1>
+<h1>댓거리 맛집 정보 입력!</h1>
 <br>
 <form action="fdata.jsp">
     <div class="form-group">
