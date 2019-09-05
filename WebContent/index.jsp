@@ -12,10 +12,11 @@
 <title>댓거리 맛집 리스트!</title>
 </head>
 <body>
-
+http://rwdb.kr/interestedeffects/
 <div class="container">
 <h1>댓거리 맛집 정보!</h1>
 <br>
+<button type="button" class="btn btn-warning" onclick="location.href='login.html'">라이언 로그인</button>
 <button type="button" class="btn btn-success" onclick="location.href='insert.jsp'">맛집 데이터 입력</button>
 <button type="button" class="btn btn-info" onclick="location.href='print.jsp'">맛집 데이터 출력</button>
 </div>

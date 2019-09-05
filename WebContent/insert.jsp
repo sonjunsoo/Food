@@ -30,9 +30,32 @@ function inputPhoneNumber(obj) {
     }
     obj.value = phone;
 }
-
 </script>
 
+<script>
+function inputTimeNumber(obj) {
+
+    var number = obj.value.replace(/[^0-9]/g, "");
+    var time = "";
+
+    if(number.length < 5) {
+    	time += number.substr(0, 2);
+    	time += ":";
+    	time += number.substr(2);
+    	time += "~";
+    } else if(number.length < 12) {
+    	time += number.substr(0, 2);
+    	time += ":";
+    	time += number.substr(2, 2);
+    	time += "~";
+    	time += number.substr(4, 2);
+    	time += ":";
+    	time += number.substr(6, 2);
+    	time += number.substr(12);
+    } 
+	obj.value = time;
+
+}
 
 </script>
 <meta charset="UTF-8">
@@ -79,7 +102,7 @@ function inputPhoneNumber(obj) {
     </div>
     <div class="form-group">
       <label for="time">영업시간:</label>
-      <input type="text" class="form-control" id="time" placeholder="영업시간 입력" name="time">
+      <input type="text" onKeyup="inputTimeNumber(this);" class="form-control" id="time" placeholder="영업시간 입력" name="time">
     </div>
     <button type="submit" class="btn btn-primary">맛집 정보 전송</button>
   </form>
