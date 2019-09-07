@@ -1,3 +1,4 @@
+<%@page import="java.util.Random"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="food.FoodVO"%>
 <%@page import="java.sql.ResultSet"%>
@@ -18,8 +19,6 @@
  String tel = request.getParameter("tel");
  String time = request.getParameter("time");
 
-	String ob = request.getParameter("orderby"); //오름차순
-
  	Connection conn = null;			
 	Boolean connect = false;
 		
@@ -29,16 +28,8 @@
 		Context init = new InitialContext();
 		DataSource ds = (DataSource)init.lookup("java:comp/env/jdbc/kndb");
 		conn = ds.getConnection();
-		String sql=null;
-		boolean isDesc = false;
 		
-	if(ob==null) {
-		//내림차순
-		sql = "SELECT * FROM food ORDER BY price DESC";
-	}else{
-		//오름차순
-		sql = "SELECT * FROM food ORDER BY price ASC";
-	}
+		String sql = "select * from food";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
 		
@@ -67,11 +58,19 @@
 	} else {	
 		System.out.println("연결실패.");
 	}	
+	
+	int random = (int) (Math.random()*list.size());
+	
+//	Random rnd = new Random();
+//int rNum = rnd.nextInt(list.size());
+	
+	FoodVO fvo = list.get(random);
+	System.out.println(fvo.getMenu());
 %>
 <!DOCTYPE html>
 <html>
 <head>
-  <title>댓거리 맛집 리스트!</title> 
+  <title>댓거리 맛집 추천!</title> 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -83,18 +82,14 @@
 <jsp:include page="top.jsp" flush="false"/>
 
 <div class="container">
-<h1>댓거리 맛집 정보 출력!</h1>
+<h1>맛집 추천!</h1>
   <table class="table">
     <thead>
       <tr>
         <th>가게이름</th>
         <th>메뉴</th>
         <th>원산지</th>
-        <%if(ob==null) { %>
-        <th>가격<a href="print.jsp?orderby=1">↑</a></th>
-        <%} else { %>
-        <th>가격<a href="print.jsp?orderby=1">↓</a></th>
-       	<%}%>
+        <th>가격</th>
         <th>위치</th>
         <th>별점</th>
         <th>전화번호</th>
@@ -102,18 +97,16 @@
       </tr>
     </thead>
     <tbody>
-    <%for(FoodVO vo : list) { %>
       <tr class="table-dark text-dark">
-        <td><%=vo.getName() %></td>
-        <td><%=vo.getMenu() %></td>
-        <td><%=vo.getHome() %></td>
-        <td><%=vo.getPrice() %></td>
-        <td><%=vo.getLoc() %></td>
-        <td><%=vo.getStar() %></td>
-        <td><%=vo.getTel() %></td>
-        <td><%=vo.getTime() %></td>
+        <td><%=fvo.getName() %></td>
+        <td><%=fvo.getMenu() %></td>
+        <td><%=fvo.getHome() %></td>
+        <td><%=fvo.getPrice() %></td>
+        <td><%=fvo.getLoc() %></td>
+        <td><%=fvo.getStar() %></td>
+        <td><%=fvo.getTel() %></td>
+        <td><%=fvo.getTime() %></td>
       </tr>
-      <%} %>
       
     </tbody>
   </table>

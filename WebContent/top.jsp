@@ -21,11 +21,14 @@
     <li class="nav-item">
       <a class="nav-link" href="print.jsp">맛집 목록</a>
     </li>
-    <form class="form-inline" action="/action_page.php">
-    <input class="form-control mr-sm-2" type="text" placeholder="맛집 검색">
+    <li class="nav-item">
+      <a class="nav-link" href="random.jsp">맛집 추천</a>
+    </li>
+  </ul>
+  <form class="form-inline ml-auto" action="search.jsp">
+    <input class="form-control mr-sm-2" type="text" name="search" placeholder="맛집 검색">
     <button class="btn btn-success" type="submit">검색</button>
   </form>
-  </ul>
 </nav>
 </body>
 </html>

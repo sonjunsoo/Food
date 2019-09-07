@@ -9,17 +9,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% 
- String name = request.getParameter("name");
- String menu = request.getParameter("menu");
- String home = request.getParameter("home");
- String price = request.getParameter("price");
- String loc = request.getParameter("loc");
- String star = request.getParameter("star");
- String tel = request.getParameter("tel");
- String time = request.getParameter("time");
-
-	String ob = request.getParameter("orderby"); //오름차순
-
+	request.setCharacterEncoding("utf-8"); //한글 깨짐 방지
+	String search = request.getParameter("search");
+ 	
+	System.out.println(search + " 검색");
+	
  	Connection conn = null;			
 	Boolean connect = false;
 		
@@ -29,17 +23,11 @@
 		Context init = new InitialContext();
 		DataSource ds = (DataSource)init.lookup("java:comp/env/jdbc/kndb");
 		conn = ds.getConnection();
-		String sql=null;
-		boolean isDesc = false;
 		
-	if(ob==null) {
-		//내림차순
-		sql = "SELECT * FROM food ORDER BY price DESC";
-	}else{
-		//오름차순
-		sql = "SELECT * FROM food ORDER BY price ASC";
-	}
+		String sql = "SELECT * FROM food WHERE menu LIKE ?";
+
 		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, "%"+search+"%");
 		ResultSet rs = pstmt.executeQuery();
 		
 		while(rs.next()){
@@ -83,18 +71,14 @@
 <jsp:include page="top.jsp" flush="false"/>
 
 <div class="container">
-<h1>댓거리 맛집 정보 출력!</h1>
+<h1>검색 결과</h1>
   <table class="table">
     <thead>
       <tr>
         <th>가게이름</th>
         <th>메뉴</th>
         <th>원산지</th>
-        <%if(ob==null) { %>
-        <th>가격<a href="print.jsp?orderby=1">↑</a></th>
-        <%} else { %>
-        <th>가격<a href="print.jsp?orderby=1">↓</a></th>
-       	<%}%>
+        <th>가격</th>
         <th>위치</th>
         <th>별점</th>
         <th>전화번호</th>
