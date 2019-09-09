@@ -24,6 +24,9 @@
     <li class="nav-item">
       <a class="nav-link" href="random.jsp">맛집 추천</a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link" href="star.jsp">맛집 평가</a>
+    </li>
   </ul>
   <form class="form-inline ml-auto" action="search.jsp">
     <input class="form-control mr-sm-2" type="text" name="search" placeholder="맛집 검색">
