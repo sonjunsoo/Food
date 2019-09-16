@@ -16,10 +16,10 @@
       <a class="nav-link" href="login.html">로그인</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="insert.jsp">맛집 추가</a>
+      <a class="nav-link" href="store.jsp">맛집 추가</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="print.jsp">맛집 목록</a>
+      <a class="nav-link" href="fprint.jsp">맛집 목록</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="random.jsp">맛집 추천</a>

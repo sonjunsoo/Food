@@ -24,7 +24,6 @@
 	.starR.on{background-position:0 0;}					
 </style>						
 <script>		
-	var score = 1;
 	
 $(document).ready(function(){						
 	$('.starRev span').click(function(){					
@@ -56,7 +55,7 @@ $(document).ready(function(){
     Open modal
   </button>
 
-  <!-- The Modal -->
+  <!-- The Modal 시작 -->
   <div class="modal fade" id="myModal">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -88,6 +87,7 @@ $(document).ready(function(){
         
       </div>
     </div>
-  </div>				
+  </div>	
+  <!-- 모달 끝 -->			
 </body>						
 </html>						
