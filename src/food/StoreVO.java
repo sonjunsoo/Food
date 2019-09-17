@@ -1,11 +1,18 @@
 package food;
 
 public class StoreVO {
+	private int id;
 	private String name;
 	private String loc;
 	private String tel;
 	private String time;
 	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getName() {
 		return name;
 	}

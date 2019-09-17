@@ -74,7 +74,7 @@ function inputTimeNumber(obj) {
 <h1>댓거리 맛집 정보 입력!</h1>
 <br>
 
-<form action="fdata.jsp" action="fprint.jsp">
+<form action="fdata.jsp">
     <div class="form-group">
       <label for="name">가게:</label>
       <input type="text" class="form-control" id="name" placeholder="가게 이름 입력" name="name">

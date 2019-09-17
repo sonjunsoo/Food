@@ -54,9 +54,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-가게이름 :  <%=name %><br>
-위치 :  <%=loc %><br>
-전화번호 :  <%=tel %><br>
-영업시간 :  <%=time %><br>
+<script>
+location.href= "store.jsp" </script>
 </body>
 </html>

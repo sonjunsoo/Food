@@ -1,3 +1,4 @@
+<%@page import="food.MenuVO"%>
 <%@page import="food.StoreVO"%>
 <%@page import="java.util.ArrayList"%>										
 <%@page import="food.FoodVO"%>										
@@ -11,14 +12,15 @@
 	pageEncoding="UTF-8"%>									
 										
 <%										
-	String ob = request.getParameter("orderby");//오름차순									
-	System.out.println(ob);									
+	String s_id = request.getParameter("s_id");							
+	String ob = request.getParameter("orderby");						
+	//System.out.println(ob);									
 										
 	//위 데이터를 데이터 베이스에 넣기									
 	Connection conn = null;									
 	Boolean connect = false;									
 										
-	ArrayList<StoreVO> list = new ArrayList<>();									
+	ArrayList<MenuVO> list = new ArrayList<>();									
 										
 	try {									
 		Context init = new InitialContext();								
@@ -30,22 +32,21 @@
 		if (ob == null) {								
 			//내림차순							
 										
-			sql = "SELECT * FROM store  ORDER BY name desc ";							
+			sql = "SELECT * FROM menu where s_id= ? ORDER BY price desc";							
 										
 		} else {								
 			//오름차순							
-			sql = "SELECT * FROM store  ORDER BY name asc ";							
+			sql = "SELECT * FROM menu where s_id= ? ORDER BY price asc";							
 		}								
-		PreparedStatement pstmt = conn.prepareStatement(sql);								
-		ResultSet rs = pstmt.executeQuery();								
+		PreparedStatement pstmt = conn.prepareStatement(sql);			
+		pstmt.setString(1, s_id);
+		ResultSet rs = pstmt.executeQuery();					
 										
 		while (rs.next()) {								
-			StoreVO vo = new StoreVO();	
-			vo.setId(rs.getInt("id"));
-			vo.setName(rs.getString("name"));												
-			vo.setLoc(rs.getString("loc"));							
-			vo.setTel(rs.getString("tel"));							
-			vo.setTime(rs.getString("time"));							
+			MenuVO vo = new MenuVO();							
+			vo.setId(rs.getInt("id"));												
+			vo.setName(rs.getString("name"));							
+			vo.setPrice(rs.getString("price"));							
 			list.add(vo);							
 		}								
 										
@@ -96,7 +97,7 @@
 										
 		var score= 5;								
 		$('.starRev span').click(function(){								
-			console.log('asdf');							
+	//		console.log('asdf');							
 			$(this).parent().children('span').removeClass('on');							
 			$(this).addClass('on').prevAll('span').addClass('on');							
 										
@@ -144,28 +145,24 @@
 					<%					
 						if (ob == null) {				
 					%>					
-					<th>가게이름<a href="fprint.jsp?orderby=1">↓</a></th>					
+					<th>메뉴이름<a href="menu.jsp?s_id=<%=s_id %>&orderby=1">↓</a></th>					
 					<%					
 						} else {				
 					%>					
-					<th>가게이름<a href="fprint.jsp">↑</a></th>					
+					<th>메뉴이름<a href="menu.jsp?s_id<%=s_id%>">↑</a></th>					
 					<%					
 						}				
 					%>					
-					<th>위치</th>					
-					<th>전화번호</th>					
-					<th>영업시간</th>					
+					<th>가격</th>							
 				</tr>						
 			</thead>							
 			<tbody>							
 				<%						
-					for (StoreVO vo : list) {					
+					for (MenuVO vo : list) {					
 				%>						
 				<tr class="table-dark text-dark">						
-					<td><a href="menu.jsp?s_id=<%=vo.getId()%>"> <%=vo.getName()%></a></td>					
-					<td><%=vo.getLoc()%></td>					
-					<td><%=vo.getTel()%></td>					
-					<td><%=vo.getTime()%></td>					
+					<td><%=vo.getName()%></td>					
+					<td><%=vo.getPrice()%></td>							
 				</tr>						
 				<%						
 					}					
