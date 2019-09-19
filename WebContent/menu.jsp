@@ -58,12 +58,49 @@
 	}									
 										
 	if (connect == true) {									
-		System.out.println("연결되었습니다.");								
+		System.out.println("연결1");								
 	} else {									
-		System.out.println("연결실패.");								
+		System.out.println("연결실패1");								
 	}									
-%>										
+%>
+<%			
+	String name = request.getParameter("name");						
+	//System.out.println(ob);									
 										
+	//위 데이터를 데이터 베이스에 넣기									
+	Connection connection = null;									
+	Boolean connects = false;									
+																				
+	try {									
+		Context init = new InitialContext();								
+		DataSource dsc = (DataSource) init.lookup("java:comp/env/jdbc/kndb");								
+		connection = dsc.getConnection();								
+		String sqlb = null;								
+		boolean isDesc = false;								
+										
+			sqlb = "SELECT name FROM store WHERE id=(SELECT s_id FROM menu WHERE s_id=?)";
+						
+		PreparedStatement ppstmt = connection.prepareStatement(sqlb);			
+		ppstmt.setString(1, s_id);
+		ResultSet set = ppstmt.executeQuery();					
+										
+		while (set.next()) {								
+			name = set.getString("name");							
+		}								
+										
+		connects = true;								
+		connection.close();								
+	} catch (Exception ec) {									
+		connects = false;								
+		ec.printStackTrace();								
+	}									
+										
+	if (connects == true) {									
+		System.out.println("연결2");								
+	} else {									
+		System.out.println("연결실패2");								
+	}									
+%>																	
 <!DOCTYPE html>										
 <html>										
 <head>										
@@ -137,8 +174,9 @@
 <body>										
 	<jsp:include page="top.jsp" flush="false" />									
 										
-	<div class="container">									
-		<h2>맛집 리스트</h2>								
+	<div class="container">	
+						
+		<h2><%=name %></h2> 	
 		<table class="table">								
 			<thead>							
 				<tr>														
@@ -168,7 +206,8 @@
 					}					
 				%>						
 			</tbody>							
-		</table>								
+		</table>		
+		<button type="button" class="btn btn-primary" style="float: right" data-toggle="modal" data-target="#myModal">맛집 평가</button>							
 	</div>									
 										
 	<!-- 모달 시작 -->									

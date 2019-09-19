@@ -37,7 +37,7 @@ $(document).ready(function(){
 	$("#submit").click(function(){
 	    $.post("star_proc.jsp",
 	    {
-	      menu: getMenuName,
+	      menu: name,
 	      star: score
 	    },
 	    function(data,status){
