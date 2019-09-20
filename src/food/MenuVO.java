@@ -5,6 +5,13 @@ public class MenuVO {
 	private String name;
 	private String price;
 	private String star;
+	private String img;
+	public String getImg() {
+		return img;
+	}
+	public void setImg(String img) {
+		this.img = img;
+	}
 	private String s_id;
 	public int getId() {
 		return id;

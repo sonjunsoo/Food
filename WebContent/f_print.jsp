@@ -144,11 +144,11 @@
 					<%					
 						if (ob == null) {				
 					%>					
-					<th>가게이름<a href="fprint.jsp?orderby=1">↓</a></th>					
+					<th>가게이름<a href="f_print.jsp?orderby=1">↓</a></th>					
 					<%					
 						} else {				
 					%>					
-					<th>가게이름<a href="fprint.jsp">↑</a></th>					
+					<th>가게이름<a href="f_print.jsp">↑</a></th>					
 					<%					
 						}				
 					%>					
@@ -162,7 +162,7 @@
 					for (StoreVO vo : list) {					
 				%>						
 				<tr class="table-dark text-dark">						
-					<td><a href="menu.jsp?s_id=<%=vo.getId()%>"> <%=vo.getName()%></a></td>					
+					<td><a href="menu.jsp?s_id=<%=vo.getId()%>&s_name=<%=vo.getName()%>"><%=vo.getName()%></a></td>					
 					<td><%=vo.getLoc()%></td>					
 					<td><%=vo.getTel()%></td>					
 					<td><%=vo.getTime()%></td>					
