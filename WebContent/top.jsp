@@ -13,9 +13,6 @@
   <!-- Links -->
   <ul class="navbar-nav">
     <li class="nav-item">
-      <a class="nav-link" href="login.jsp">로그인</a>
-    </li>
-    <li class="nav-item">
       <a class="nav-link" href="store.jsp">맛집 추가</a>
     </li>
     <li class="nav-item">
@@ -24,8 +21,8 @@
     <li class="nav-item">
       <a class="nav-link" href="random.jsp">맛집 추천</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="star.jsp">맛집 평가</a>
+<li class="nav-item">
+      <a class="nav-link" href="login.jsp">로그인</a>
     </li>
   </ul>
   <form class="form-inline ml-auto" action="search.jsp">
