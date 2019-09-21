@@ -103,12 +103,16 @@ $(document).ready(function(){
 				menu: $('#m_menuname').text(),								
 				star: score								
 				},								
-				function(data,status){								
-				alert("Data: " + data + "\nStatus: " + status);		
-				
+				function(data,status){
+				//alert("Data: " + data + "\nStatus: " + status);		
+				if(data == 1){
+					alert("소중한 평가, 감사합니다!");
+				}else{
+					alert("등록 실패, 관리자에게 문의!");
+				}
 				modalClose();
 				});								
-				});							
+		});							
 																										
 });																
 	function modalClose(){

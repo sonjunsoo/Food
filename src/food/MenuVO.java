@@ -6,6 +6,13 @@ public class MenuVO {
 	private String price;
 	private String star;
 	private String img;
+	private String star_avg;
+	public String getStar_avg() {
+		return star_avg;
+	}
+	public void setStar_avg(String star_avg) {
+		this.star_avg = star_avg;
+	}
 	public String getImg() {
 		return img;
 	}

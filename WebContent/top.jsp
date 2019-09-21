@@ -13,7 +13,7 @@
   <!-- Links -->
   <ul class="navbar-nav">
     <li class="nav-item">
-      <a class="nav-link" href="login.html">로그인</a>
+      <a class="nav-link" href="login.jsp">로그인</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="store.jsp">맛집 추가</a>

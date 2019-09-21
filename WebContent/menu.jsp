@@ -14,7 +14,7 @@
 <%					
 	request.setCharacterEncoding("utf-8"); // 한글
 	String s_name = request.getParameter("s_name"); // 가게이름
-	String s_id = request.getParameter("s_id");	// DB에서 메뉴 불러 오기 위한 가게 ID			 			
+	String s_id = request.getParameter("s_id");	// DB에서 메뉴 불러 오기 위한 가게 ID		
 //	String ob = request.getParameter("orderby"); // 오름차순
 	//System.out.println(ob);									
 										
@@ -48,7 +48,8 @@
 			MenuVO vo = new MenuVO();							
 			vo.setId(rs.getInt("id"));												
 			vo.setName(rs.getString("name"));							
-			vo.setPrice(rs.getString("price"));							
+			vo.setPrice(rs.getString("price"));	
+			vo.setStar_avg(rs.getString("star_avg"));
 			list.add(vo);							
 		}								
 										
@@ -184,7 +185,7 @@ function modalClose(){
 				<tr class="table-dark text-dark">						
 				<td id="m_menuname"><a href="review.jsp?m_name=<%=vo.getName()%>"><%=vo.getName()%></td>					
 				<td><%=vo.getPrice()%></td>			
-				<td>5.0</td>				
+				<td><%=vo.getStar_avg() %></td>				
 				</tr>						
 				<%						
 					}					
