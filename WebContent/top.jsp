@@ -24,9 +24,7 @@
   <!-- Links -->
   <ul class="navbar-nav">
     <li class="nav-item">
-    <% if(email == null) {%>
-    
-      <%} else {%>
+    <% if(email != null) {%>
       <a class="nav-link" href="store.jsp">맛집 추가</a>
       <% } %>
     </li>

@@ -15,7 +15,7 @@
 <jsp:include page="top.jsp" flush="false"/>
 <div class="container-fluid">
   <h3>4학4</h3>
-  <p>댓거리 맛집 정보 수집 및 제공</p>
+  <p>댓거리 맛집 정보 수집 및 제공 사이트입니다.</p>
     <img src= "https://t1.daumcdn.net/cfile/tistory/995A34365B2F3E071D">
 </div>
 

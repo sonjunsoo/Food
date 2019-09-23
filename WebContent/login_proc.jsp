@@ -29,7 +29,7 @@
 
 		out.println("<script>");
 		if(rs.next()){
-			//로그인 성공
+			//로그인 성공  // uservo 통째로 담기
 			session.setAttribute("email", email);
 			String name = rs.getString("name");
 			out.println("alert('"+ name +"님 4학4 방문을 환영합니다~');");
