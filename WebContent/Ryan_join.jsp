@@ -20,7 +20,7 @@
             </div>
             <div class="content form-horizontal align-items-center">
                
-                <form action="join_proc.jsp" method="post" >
+                <form class="ryanform" action="join_proc.jsp" method="post" >
                     <div class="form-group">
                         <label for="email" class="control-label">이메일</label>
                         <input type="email" id="email" name="email" class="form-control"/>
@@ -35,15 +35,16 @@
                         <input type="text" id="phone" name="phone" class="form-control"/>
                     </div>
                     <div class="form-group">
-					    <div class="custom-control custom-radio custom-control-inline">
-					      <input type="radio" class="custom-control-input" id="customRadio1" checked="checked" name="example1">
-					      <label class="custom-control-label" for="customRadio1">개인</label>
-					    </div>
-					    <div class="custom-control custom-radio custom-control-inline">
-					      <input type="radio" class="custom-control-input" id="customRadio2" name="example1">
-					      <label class="custom-control-label" for="customRadio2">사업자</label>
-					    </div>
-					</div>
+		                 <div class="custom-control custom-radio custom-control-inline">
+					     	<input type="radio" class="custom-control-input" id="customRadio1" name="radio" value="0" checked="checked">
+					     	<label class="custom-control-label" for="customRadio1">개인</label>
+					     </div>
+						 <div class="custom-control custom-radio custom-control-inline">
+						 	<input type="radio" class="custom-control-input" id="customRadio2" name="radio" value="10">
+						 	<label class="custom-control-label" for="customRadio2">사업자</label>
+						 </div>
+					 </div>
+                    
                     <div class="form-group">
                         <input type="submit" value="회원가입" class="btn btn-primary btn-block">
                     </div>

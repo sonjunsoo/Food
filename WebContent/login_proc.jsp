@@ -30,8 +30,11 @@
 		out.println("<script>");
 		if(rs.next()){
 			//로그인 성공
+			session.setAttribute("email", email);
 			String name = rs.getString("name");
 			out.println("alert('"+ name +"님 4학4 방문을 환영합니다~');");
+			out.println("location.href='index.jsp'");
+			
 		}else{
 			//로그인 실패
 			out.println("alert('아이디 또는 비밀번호 재확인');");

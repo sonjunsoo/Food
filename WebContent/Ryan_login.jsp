@@ -13,7 +13,8 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <form action="login_proc.jsp" method="post">
+    <jsp:include page="top.jsp" flush="false"/>
+    <form class="ryanform" action="login_proc.jsp" method="post">
         <svg id="ryan" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
             <path d="M0,150 C0,65 120,65 120,150" fill="#e0a243" stroke="#000" stroke-width="2.5" />
             <g class="ears">
@@ -40,7 +41,7 @@
         <input  type="password" id="password" name="password" class="form-control" placeholder="비밀번호 입력">
         
         <input type="submit" value="로그인" class="btn btn-primary btn-block">
-         <a href="login.jsp" class="btn btn-primary btn-block">회원가입</a>
+         <a href="Ryan_join.jsp" class="btn btn-primary btn-block">회원가입</a>
     </form>
     <script src="script.js"></script>
 </body>
