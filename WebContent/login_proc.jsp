@@ -11,7 +11,8 @@
 		request.setCharacterEncoding("utf-8"); //한글
 		String email = request.getParameter("email");
 		String pw = request.getParameter("password");
-	
+		String grade = request.getParameter("grade");
+
 
 // 점수 DB 저장
 	Connection conn = null;			
@@ -40,7 +41,8 @@
 			u_vo.setGrade(rs.getString("grade"));
 			
 			session.setAttribute("login", u_vo); 
-			
+			session.setAttribute("grade", rs.getString("grade"));
+
 			String u_name = u_vo.getName();
 			out.println("alert('"+ u_name +"님 4학4 방문을 환영합니다~');");
 			out.println("location.href='index.jsp'");

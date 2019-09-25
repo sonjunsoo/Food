@@ -4,7 +4,10 @@
 <% 
 	//세션 체크
 	UserVO vo = (UserVO)session.getAttribute("login");
-	System.out.println();
+	String grade = (String)session.getAttribute("grade");
+	System.out.println(grade);
+	int a = 10;
+	String b = Integer.toString(a);
 %>  
 <!DOCTYPE html>
 <html>
@@ -20,7 +23,7 @@
   <!-- Links -->
   <ul class="navbar-nav">
     <li class="nav-item">
-    <% if(vo != null) {%>    
+    <% if(vo != null && grade.equals(b)) {%>    
       <a class="nav-link" href="store.jsp">맛집 추가</a>
       <% } %>
     </li>
