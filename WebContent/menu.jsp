@@ -14,7 +14,8 @@
 <%					
 	request.setCharacterEncoding("utf-8"); // 한글
 	String s_name = request.getParameter("s_name"); // 가게이름
-	String s_id = request.getParameter("s_id");	// DB에서 메뉴 불러 오기 위한 가게 ID		
+	String s_id = request.getParameter("s_id");	// DB에서 메뉴 불러 오기 위한 가게 ID	
+
 //	String ob = request.getParameter("orderby"); // 오름차순
 	//System.out.println(ob);									
 										
@@ -51,8 +52,7 @@
 			vo.setPrice(rs.getString("price"));	
 			vo.setStar_avg(rs.getString("star_avg"));
 			list.add(vo);							
-		}								
-										
+		}		
 		connect = true;								
 		conn.close();								
 	} catch (Exception e) {									
@@ -60,7 +60,7 @@
 		e.printStackTrace();								
 	}									
 										
-	if (connect == true) {									
+	if (connect == true) {			
 		System.out.println("연결");								
 	} else {									
 		System.out.println("연결실패");								
@@ -94,7 +94,7 @@
 	}									
 	.starR.on{background-position:0 0;}									
 </style>										
-<script>	
+<script>			
 $(document).ready(function(){
 	var score = 5;	// 별점 초기값
 	// 클릭마다 바뀜
@@ -150,7 +150,6 @@ function modalClose(){
 //	$('#myModal').hide();								
 }										
 </script>										
-										
 </head>										
 <body>										
 	<jsp:include page="top.jsp" flush="false" />									
@@ -220,7 +219,6 @@ function modalClose(){
       		
      		<input type="hidden"id = "s_id" name ="s_id" value = "<%=s_id%>">													
 				</div>						
-										
 				<!-- Modal footer -->						
 				<div class="modal-footer">						
 					<button type="submit" class="btn btn-primary" id="addmenu">메뉴 추가</button>					

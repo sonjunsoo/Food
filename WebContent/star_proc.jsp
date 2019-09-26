@@ -19,11 +19,11 @@
 		DataSource ds = (DataSource)init.lookup("java:comp/env/jdbc/kndb");
 		conn = ds.getConnection();
 		
-		String sql = "INSERT INTO star (score, m_id) VALUES (?, (SELECT id FROM menu WHERE name = ?));";
+		String sql = "INSERT INTO review (review, score, m_id) VALUES ('내용 없음', ?, (SELECT id FROM menu WHERE name = ?));";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, star);
 		pstmt.setString(2, menu);
-		
+				
 		pstmt.executeUpdate();
 		
 		connect = true;

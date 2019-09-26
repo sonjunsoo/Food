@@ -1,3 +1,4 @@
+<%@page import="food.StoreVO"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="javax.naming.Context"%>
 <%@page import="javax.sql.DataSource"%>

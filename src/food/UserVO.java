@@ -6,8 +6,8 @@ public class UserVO {
 	private String pw;
 	private String name;
 	private String phone;
-	private String grade;
-	private String state;
+	private int grade;
+	private int state;
 	public int getId() {
 		return id;
 	}
@@ -38,16 +38,16 @@ public class UserVO {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public String getGrade() {
+	public int getGrade() {
 		return grade;
 	}
-	public void setGrade(String grade) {
+	public void setGrade(int grade) {
 		this.grade = grade;
 	}
-	public String getState() {
+	public int getState() {
 		return state;
 	}
-	public void setState(String state) {
+	public void setState(int state) {
 		this.state = state;
 	}
 	

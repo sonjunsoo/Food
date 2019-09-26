@@ -34,14 +34,14 @@
 		if(rs.next()){
 			//로그인 성공  // uservo 통째로 담기
 			UserVO u_vo = new UserVO();
+			u_vo.setId(rs.getInt("id"));
 			u_vo.setEmail(rs.getString("email"));
 			u_vo.setPw(rs.getString("pw"));
 			u_vo.setName(rs.getString("name"));
 			u_vo.setPhone(rs.getString("phone"));
-			u_vo.setGrade(rs.getString("grade"));
+			u_vo.setGrade(rs.getInt("grade"));
 			
 			session.setAttribute("login", u_vo); 
-			session.setAttribute("grade", rs.getString("grade"));
 
 			String u_name = u_vo.getName();
 			out.println("alert('"+ u_name +"님 4학4 방문을 환영합니다~');");
