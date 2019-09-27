@@ -1,3 +1,4 @@
+<%@page import="food.UserVO"%>
 <%@page import="food.MenuVO"%>
 <%@page import="food.StoreVO"%>
 <%@page import="java.util.ArrayList"%>										
@@ -12,6 +13,8 @@
 	pageEncoding="UTF-8"%>									
 										
 <%					
+	UserVO uvo = (UserVO)session.getAttribute("login");
+
 	request.setCharacterEncoding("utf-8"); // 한글
 	String s_name = request.getParameter("s_name"); // 가게이름
 	String s_id = request.getParameter("s_id");	// DB에서 메뉴 불러 오기 위한 가게 ID	
@@ -137,7 +140,7 @@ $(document).ready(function(){
 			}
 		modalClose();
 		});								
-	});								
+	});				
 });												
 										
 function getMenuName(name) {									
@@ -148,7 +151,12 @@ function getMenuName(name) {
 function modalClose(){
 	location.reload();
 //	$('#myModal').hide();								
-}										
+}		
+														
+function Close() {
+	history.back();
+}
+
 </script>										
 </head>										
 <body>										
@@ -156,7 +164,8 @@ function modalClose(){
 										
 	<div class="container">	
 						
-		<h2><%=s_name %></h2> 	
+		<h2><%=s_name %></h2>							
+ 	
 		<table class="table">								
 			<thead>							
 				<tr>														
@@ -181,8 +190,8 @@ function modalClose(){
 				<%						
 					for (MenuVO vo : list) {					
 				%>						
-				<tr class="table-dark text-dark">						
-				<td id="m_menuname"><a href="review.jsp?m_name=<%=vo.getName()%>"><%=vo.getName()%></td>					
+				<tr class="table-dark text-dark">
+				<td id="m_menuname"><a href="review.jsp?m_name=<%=vo.getName()%>"><%=vo.getName()%></a></td>	
 				<td><%=vo.getPrice()%></td>			
 				<td><%=vo.getStar_avg() %></td>				
 				</tr>						
@@ -190,8 +199,10 @@ function modalClose(){
 					}					
 				%>						
 			</tbody>							
-		</table>		
+		</table>
+		<%if(uvo != null && uvo.getGrade()>9) {%>		
 		<button type="button" class="btn btn-primary" style="float: right" data-toggle="modal" data-target="#myModal">메뉴 추가하기</button>							
+	      <% } %>
 	</div>									
 										
 	<!-- 모달 시작 -->									

@@ -36,6 +36,10 @@
           <%} %> 
     </li>
     
+    <li class="nav-item">
+      <a class="nav-link" href="board.jsp">게시판</a>
+    </li>
+    
 <li class="nav-item">
 <% if(vo == null) {%>
       <a class="nav-link" href="Ryan_login.jsp">로그인</a>

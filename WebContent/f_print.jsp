@@ -1,3 +1,4 @@
+<%@page import="food.UserVO"%>
 <%@page import="food.StoreVO"%>
 <%@page import="java.util.ArrayList"%>										
 <%@page import="food.FoodVO"%>										
@@ -10,7 +11,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"										
 	pageEncoding="UTF-8"%>									
 										
-<%										
+<%					
+	UserVO uvo = (UserVO)session.getAttribute("login");	
+
 	String ob = request.getParameter("orderby");//오름차순									
 	System.out.println(ob);									
 										
@@ -161,7 +164,7 @@
 				<%						
 					for (StoreVO vo : list) {					
 				%>						
-				<tr class="table-dark text-dark">						
+				<tr class="table-dark text-dark">
 					<td><a href="menu.jsp?s_id=<%=vo.getId()%>&s_name=<%=vo.getName()%>"><%=vo.getName()%></a></td>					
 					<td><%=vo.getLoc()%></td>					
 					<td><%=vo.getTel()%></td>					

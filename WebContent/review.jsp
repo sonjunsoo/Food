@@ -1,3 +1,4 @@
+<%@page import="food.UserVO"%>
 <%@page import="food.MenuVO"%>
 <%@page import="food.StoreVO"%>
 <%@page import="java.util.ArrayList"%>										
@@ -11,16 +12,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"										
 	pageEncoding="UTF-8"%>									
 										
-<%					
+<%			
 	request.setCharacterEncoding("utf-8"); // 한글
 	String m_name = request.getParameter("m_name"); // 메뉴이름
-										
+	UserVO uvo = (UserVO)session.getAttribute("login");	// 리뷰 입력에 필요한 유저 정보
+
 	//위 데이터를 데이터 베이스에 넣기									
 	Connection conn = null;									
 	Boolean connect = false;	
 	
-	MenuVO vo = new MenuVO();							
-																
+	MenuVO mvo = new MenuVO();							
+		
 	try {									
 		Context init = new InitialContext();								
 		DataSource ds = (DataSource) init.lookup("java:comp/env/jdbc/kndb");								
@@ -37,10 +39,10 @@
 		ResultSet rs = pstmt.executeQuery();					
 										
 		if (rs.next()) {								
-			vo.setId(rs.getInt("id"));												
-			vo.setName(rs.getString("name"));							
-			vo.setPrice(rs.getString("price"));	
-			vo.setImg(rs.getString("img"));
+			mvo.setId(rs.getInt("id"));												
+			mvo.setName(rs.getString("name"));							
+			mvo.setPrice(rs.getString("price"));	
+			mvo.setImg(rs.getString("img"));
 		}								
 										
 		connect = true;								
@@ -53,7 +55,7 @@
 	if (connect == true) {									
 		System.out.println("연결");								
 	} else {									
-		System.out.println("연결실패");								
+		System.out.println("연결실패");	
 	}									
 %>										
 <!DOCTYPE html>										
@@ -70,8 +72,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>									
 <script										
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>									
-										
-										
+																				
 <style>										
 	.starR {									
 	background: url('http://miuu227.godohosting.com/images/icon/ico_review.png') no-repeat right 0;									
@@ -82,7 +83,7 @@
 	text-indent: -9999px;									
 	cursor: pointer;									
 	}									
-	.starR.on{background-position:0 0;}									
+	.starR.on{background-position:0 0;}										
 </style>										
 <script>	
 $(document).ready(function(){
@@ -112,15 +113,46 @@ $(document).ready(function(){
 				}
 				modalClose();
 				});								
-		});							
+		});
+	
+	$("#submit").click(function(){
+	    $.post("review_proc.jsp",
+	    {
+	      review: $('#comment').val(), // comment 글 가져오기 
+	      m_id:$('#m_id').val(), 
+	      u_id:$('#u_id').val()
+	    },
+	    function(data,status){								
+			// alert("Data: " + data + "\nStatus: " + status);								
+			if(data==1){
+				alert("소중한 리뷰, 감사합니다.");
+			}else{
+				alert("오류, 관리자 문의");
+			}
+		modalClose();
+	  });
 																										
 });																
-	function modalClose(){
-	//	location.reload();
-		history.back();
-	//	$('#myModal').hide();								
-	}										
-										
+function modalClose() {
+ 	location.reload();
+//	history.back();
+// 	$('#myModal').hide();
+}
+
+$(function() {
+    $('#comment').keyup(function (e){
+        var content = $(this).val();
+        $(this).height(((content.split('\n').length + 1) * 1.5) + 'em');
+        $('#counter').html(content.length + '/50');
+    });
+    $('#comment').keyup();
+});
+
+function send_login() {
+	alert("로그인이 필요한 서비스입니다.");
+ 	location.href="Ryan_login.jsp";
+
+}
 </script>										
 										
 </head>										
@@ -133,27 +165,17 @@ $(document).ready(function(){
 		<table class="table">								
 			<thead>							
 				<tr>														
-<%-- 					<%					 --%>
-<!--  						if (ob == null) {				 -->
-<%-- 					%>					 --%>
-<%-- 					<th>메뉴이름<a href="menu.jsp?s_id=<%=s_id %>&orderby=1">↓</a></th>					 --%>
-<%-- 					<%					 --%>
-<!--  						} else {				 -->
-<%-- 					%>					 --%>
-<%-- 					<th>메뉴이름<a href="menu.jsp?s_id<%=s_id%>">↑</a></th>					 --%>
-<%-- 					<%					 --%>
-<!--  						}				 -->
-<%-- 					%>					 --%>
 					<th>메뉴이름</th>							
 					<th>가격</th>	
-					<th>평가하기</th>							
-										
+					<th>평가하기</th>
+					<th>리뷰쓰기</th>							
+																						
 				</tr>						
 			</thead>							
 			<tbody>													
 				<tr class="table-dark text-dark">						
-				<td id="m_menuname"><%=vo.getName()%></td>					
-				<td><%=vo.getPrice()%></td>	
+				<td id="m_menuname"><%=mvo.getName()%></td>					
+				<td><%=mvo.getPrice()%></td>	
 				<td>
 					<div class="starRev">						
 					<span class="starR on">1</span>						
@@ -164,18 +186,62 @@ $(document).ready(function(){
 		<button type="button" id="star" class="btn btn-danger">확인</button>							
 										
 				</div>
+				</td>
+				<td>
+				<%if(uvo==null){ %>
+				<button type="button" class="btn btn-primary" onclick="send_login()">리뷰 작성</button>								
+				<% } else { %>
+		        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+		  			리뷰 작성
+				</button>
+			<% } %>
 				</td>		
 				</tr>						
 									
 			</tbody>							
 		</table>
-		<% if(vo.getImg()==null) {%>
-		<p class="text-center">이미지가 없습니다.</p>
+		<% if(mvo.getImg() == null || mvo.getImg().equals("")) {%>
+		<p class="text-left">이미지가 없습니다.</p>	
 		<%}else{ %>
-		<img src="<%=vo.getImg() %>" width="400" height="400" class="rounded mx-auto d-block">	
+		<img src="<%=mvo.getImg() %>" width="320" height="240" style="float: left" class="rounded mx-auto d-block">	
 		<%} %>	
-	</div>									
-																			
+		<p class="mx-auto">리뷰 리스트</p>
+	</div>						
+				
+		<!-- 모달 시작 -->									
+	<!-- The Modal -->
+<!--  <form action="r_data.jsp">									 -->
+	<div class="modal" id="myModal">									
+		<div class="modal-dialog">								
+			<div class="modal-content">							
+										
+				<!-- Modal Header -->						
+				<div class="modal-header">						
+					<h4 class="modal-title">리뷰 작성</h4>					
+				</div>						
+										
+				<!-- Modal body -->						
+				<div class="modal-body">	
+					<div class="form-group">
+				 	 <label for="comment"></label>
+				 	 <textarea class="form-control" rows="2" maxlength="50" id="comment"></textarea>
+				 	 <input type="hidden" id=m_id value="<%=mvo.getId()%>"> 
+				 	 <%if(uvo!=null){ %>
+				 	 <input type="hidden" id=u_id value="<%=uvo.getId()%>"> 
+				 	 <%}%>
+					</div>	
+					<span id="counter">###</span>																	
+				</div>						
+				<!-- Modal footer -->						
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary" id="submit">등록</button>					
+					<button type="button" class="btn btn-danger" data-dismiss="modal" onclick="modalClose()">취소</button>					
+				</div>													
+			</div>							
+		</div>								
+	</div>	
+<!-- 	</form>								 -->
+<!-- 모달 끝-->																	
 										
 </body>										
 </html>										
