@@ -7,7 +7,7 @@
 	pageEncoding="UTF-8"%>
 <% 
 	request.setCharacterEncoding("utf-8"); //한글
-	String review = request.getParameter("menu");
+	String review = request.getParameter("review");
 	String m_id = request.getParameter("m_id");
 	String u_id = request.getParameter("u_id");
 	

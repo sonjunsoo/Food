@@ -1,3 +1,4 @@
+<%@page import="food.ReviewVO"%>
 <%@page import="food.UserVO"%>
 <%@page import="food.MenuVO"%>
 <%@page import="food.StoreVO"%>
@@ -15,6 +16,8 @@
 <%			
 	request.setCharacterEncoding("utf-8"); // 한글
 	String m_name = request.getParameter("m_name"); // 메뉴이름
+	String m_id = request.getParameter("m_id"); // 메뉴이름
+
 	UserVO uvo = (UserVO)session.getAttribute("login");	// 리뷰 입력에 필요한 유저 정보
 
 	//위 데이터를 데이터 베이스에 넣기									
@@ -56,7 +59,43 @@
 		System.out.println("연결");								
 	} else {									
 		System.out.println("연결실패");	
+	}			
+	
+	// 리뷰
+	ArrayList<ReviewVO> list = new ArrayList<>();	
+	
+	try {									
+		Context init = new InitialContext();								
+		DataSource ds = (DataSource) init.lookup("java:comp/env/jdbc/kndb");								
+		conn = ds.getConnection();								
+		String sql = null;								
+		boolean isDesc = false;								
+														
+			sql = "SELECT review FROM review where m_id = ?";							
+															
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, m_id);
+
+		ResultSet rs = pstmt.executeQuery();								
+										
+		while (rs.next()) {								
+			ReviewVO rvo = new ReviewVO();							
+			rvo.setReview(rs.getString("review"));											
+			list.add(rvo);							
+		}								
+										
+		connect = true;								
+		conn.close();								
+	} catch (Exception e) {									
+		connect = false;								
+		e.printStackTrace();								
 	}									
+										
+	if (connect == true) {									
+		System.out.println("연결되었습니다.");								
+	} else {									
+		System.out.println("연결실패.");								
+	}
 %>										
 <!DOCTYPE html>										
 <html>										
@@ -101,8 +140,9 @@ $(document).ready(function(){
 	$("#star").click(function(){								
 		$.post("star_proc.jsp",								
 				{								
-				menu: $('#m_menuname').text(),								
-				star: score								
+				star: score,
+				m_id:$('#m_id').val(), 
+			    u_id:$('#u_id').val()
 				},								
 				function(data,status){
 				//alert("Data: " + data + "\nStatus: " + status);		
@@ -125,14 +165,15 @@ $(document).ready(function(){
 	    function(data,status){								
 			// alert("Data: " + data + "\nStatus: " + status);								
 			if(data==1){
-				alert("소중한 리뷰, 감사합니다.");
+				alert("소중한 리뷰, 감사합니다!");
 			}else{
-				alert("오류, 관리자 문의");
+				alert("오류, 관리자에게 문의!");
 			}
 		modalClose();
 	  });
-																										
-});																
+	});																																								
+});		
+
 function modalClose() {
  	location.reload();
 //	history.back();
@@ -182,8 +223,12 @@ function send_login() {
 					<span class="starR on">2</span>						
 					<span class="starR on">3</span>						
 					<span class="starR on">4</span>						
-					<span class="starR on">5</span>	
-		<button type="button" id="star" class="btn btn-danger">확인</button>							
+					<span class="starR on">5</span>
+					<%if(uvo==null){ %>	
+					<button type="button" id="star" class="btn btn-danger" onclick="send_login()" >확인</button>		
+					<% } else { %>
+					<button type="button" id="star" class="btn btn-danger" >확인</button>							
+					<% } %>
 										
 				</div>
 				</td>
@@ -204,8 +249,26 @@ function send_login() {
 		<p class="text-left">이미지가 없습니다.</p>	
 		<%}else{ %>
 		<img src="<%=mvo.getImg() %>" width="320" height="240" style="float: left" class="rounded mx-auto d-block">	
-		<%} %>	
-		<p class="mx-auto">리뷰 리스트</p>
+		<%} %>
+		
+		<table class="table">								
+			<thead>							
+				<tr>														
+					<th>생생 리뷰</th>																													
+				</tr>						
+			</thead>							
+			<tbody>						
+				<%						
+					for (ReviewVO rvo : list) {					
+				%>						
+				<tr class="table-white text-dark">						
+					<td><%=rvo.getReview()%></td>									
+				</tr>						
+				<%						
+					}					
+				%>						
+			</tbody>							
+		</table>				
 	</div>						
 				
 		<!-- 모달 시작 -->									

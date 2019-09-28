@@ -191,7 +191,7 @@ function Close() {
 					for (MenuVO vo : list) {					
 				%>						
 				<tr class="table-dark text-dark">
-				<td id="m_menuname"><a href="review.jsp?m_name=<%=vo.getName()%>"><%=vo.getName()%></a></td>	
+				<td id="m_menuname"><a href="review.jsp?m_id=<%=vo.getId()%>&m_name=<%=vo.getName()%>"><%=vo.getName()%></a></td>	
 				<td><%=vo.getPrice()%></td>			
 				<td><%=vo.getStar_avg() %></td>				
 				</tr>						
