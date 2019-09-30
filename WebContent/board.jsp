@@ -22,7 +22,6 @@
 	<jsp:include page="top.jsp" flush="false" />									
 
 	<%
-
 		UserVO uvo = (UserVO) session.getAttribute("login");
 	%>
 

@@ -19,7 +19,10 @@
 	String m_id = request.getParameter("m_id"); // 메뉴이름
 
 	UserVO uvo = (UserVO)session.getAttribute("login");	// 리뷰 입력에 필요한 유저 정보
-
+	
+	// 리뷰 리스트
+		ArrayList<ReviewVO> list = new ArrayList<>();
+	
 	//위 데이터를 데이터 베이스에 넣기									
 	Connection conn = null;									
 	Boolean connect = false;	
@@ -32,11 +35,9 @@
 		conn = ds.getConnection();								
 		String sql = null;								
 		boolean isDesc = false;								
-										
- 					
+														
  			sql = "SELECT * FROM menu where name = ?";							
-										
- 			
+													
 		PreparedStatement pstmt = conn.prepareStatement(sql);			
 		pstmt.setString(1, m_name);
 		ResultSet rs = pstmt.executeQuery();					
@@ -46,8 +47,20 @@
 			mvo.setName(rs.getString("name"));							
 			mvo.setPrice(rs.getString("price"));	
 			mvo.setImg(rs.getString("img"));
-		}								
+		}			
+									
+			sql = "SELECT * FROM review where m_id = ?";							
+															
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, m_id); // pstmt.setInt(1,mvo.getid());
+
+		rs = pstmt.executeQuery();								
 										
+		while (rs.next()) {								
+			ReviewVO rvo = new ReviewVO();							
+			rvo.setReview(rs.getString("review"));											
+			list.add(rvo);							
+		}						
 		connect = true;								
 		conn.close();								
 	} catch (Exception e) {									
@@ -59,43 +72,8 @@
 		System.out.println("연결");								
 	} else {									
 		System.out.println("연결실패");	
-	}			
+	}		
 	
-	// 리뷰
-	ArrayList<ReviewVO> list = new ArrayList<>();	
-	
-	try {									
-		Context init = new InitialContext();								
-		DataSource ds = (DataSource) init.lookup("java:comp/env/jdbc/kndb");								
-		conn = ds.getConnection();								
-		String sql = null;								
-		boolean isDesc = false;								
-														
-			sql = "SELECT review FROM review where m_id = ?";							
-															
-		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, m_id);
-
-		ResultSet rs = pstmt.executeQuery();								
-										
-		while (rs.next()) {								
-			ReviewVO rvo = new ReviewVO();							
-			rvo.setReview(rs.getString("review"));											
-			list.add(rvo);							
-		}								
-										
-		connect = true;								
-		conn.close();								
-	} catch (Exception e) {									
-		connect = false;								
-		e.printStackTrace();								
-	}									
-										
-	if (connect == true) {									
-		System.out.println("연결되었습니다.");								
-	} else {									
-		System.out.println("연결실패.");								
-	}
 %>										
 <!DOCTYPE html>										
 <html>										
@@ -225,7 +203,7 @@ function send_login() {
 					<span class="starR on">4</span>						
 					<span class="starR on">5</span>
 					<%if(uvo==null){ %>	
-					<button type="button" id="star" class="btn btn-danger" onclick="send_login()" >확인</button>		
+					<button type="button" class="btn btn-danger" onclick="send_login()" >확인</button>		
 					<% } else { %>
 					<button type="button" id="star" class="btn btn-danger" >확인</button>							
 					<% } %>

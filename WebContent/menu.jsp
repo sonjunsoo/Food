@@ -95,10 +95,29 @@
 	text-indent: -9999px;									
 	cursor: pointer;									
 	}									
-	.starR.on{background-position:0 0;}									
+	.starR.on{background-position:0 0;}
+	
+	span.star_prototype, span.star_prototype > * {
+    height: 16px; 
+    background: url(http://i.imgur.com/YsyS5y8.png) 0 -16px repeat-x;
+    width: 80px;
+    display: inline-block;
+}
+ 
+	span.star_prototype > * {
+    background-position: 0 0;
+    max-width:80px; 
+}								
 </style>										
 <script>			
 $(document).ready(function(){
+	
+	$.fn.generateStars = function() {
+	    return this.each(function(i,e){$(e).html($('<span/>').width($(e).text()*16));});
+	};
+
+	// 숫자 평점을 별로 변환하도록 호출하는 함수
+	$('.star_prototype').generateStars();
 	var score = 5;	// 별점 초기값
 	// 클릭마다 바뀜
 	$('.starRev span').click(function(){
@@ -121,7 +140,6 @@ $(document).ready(function(){
 				});								
 				});							
 																				
-		
 	//ajax 사용													
 		$("#addmenu").click(function(){								
 		$.post("m_data.jsp",								
@@ -140,7 +158,7 @@ $(document).ready(function(){
 			}
 		modalClose();
 		});								
-	});				
+	});
 });												
 										
 function getMenuName(name) {									
@@ -193,11 +211,16 @@ function Close() {
 				<tr class="table-dark text-dark">
 				<td id="m_menuname"><a href="review.jsp?m_id=<%=vo.getId()%>&m_name=<%=vo.getName()%>"><%=vo.getName()%></a></td>	
 				<td><%=vo.getPrice()%></td>			
-				<td><%=vo.getStar_avg() %></td>				
+				<td> 
+					<span class="star_prototype">
+					<% String star_avg = vo.getStar_avg();
+						if(star_avg.length() > 3) {
+							star_avg = star_avg.substring(0, 3);
+							}%>						
+					<%=star_avg%></span>
+					(<%=vo.getStar_avg().substring(0, 3) %>)</td>				
 				</tr>						
-				<%						
-					}					
-				%>						
+				<%}%>						
 			</tbody>							
 		</table>
 		<%if(uvo != null && uvo.getGrade()>9) {%>		
